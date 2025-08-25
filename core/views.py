@@ -22,14 +22,26 @@ class RandomBackgroundImage(APIView):
         obj = pick_random(BackgroundImage)
         if not obj:
             return Response({"detail": "no image"}, status=404)
-        return Response(BackgroundImageSerializer(obj).data)
+
+        data = BackgroundImageSerializer(obj).data
+        # 拼接完整 URL
+        if 'image' in data and data['image']:
+            data['image'] = request.build_absolute_uri(data['image'])
+
+        return Response(data)
+
 
 class RandomMusicTrack(APIView):
     def get(self, request):
         obj = pick_random(MusicTrack)
         if not obj:
             return Response({"detail": "no music"}, status=404)
-        return Response(MusicTrackSerializer(obj).data)
+
+        data = MusicTrackSerializer(obj).data
+        if 'audio' in data and data['audio']:
+            data['audio'] = request.build_absolute_uri(data['audio'])
+
+        return Response(data)
 
 class RandomQuote(APIView):
     def get(self, request):

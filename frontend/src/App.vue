@@ -61,8 +61,8 @@ async function initPage() {
   const mu = await fetchRandom("music");
   const qt = await fetchRandom("quote?lang=zh");
 
-  if (bg) bg.image = API_BASE + bg.image;
-  if (mu) mu.audio = API_BASE + mu.audio;
+  //if (bg) bg.image = API_BASE + bg.image;
+  //if (mu) mu.audio = API_BASE + mu.audio;
 
   background.value = bg;
   music.value = mu;
