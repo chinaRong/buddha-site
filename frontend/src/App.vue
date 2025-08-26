@@ -42,7 +42,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-const API_BASE = "http://127.0.0.1:8000"; // 后端地址
+const API_BASE = "http://www.dailyteaching.cn"; // 用公网域名
 
 const background = ref(null);
 const music = ref(null);
@@ -61,8 +61,8 @@ async function initPage() {
   const mu = await fetchRandom("music");
   const qt = await fetchRandom("quote?lang=zh");
 
-  //if (bg) bg.image = API_BASE + bg.image;
-  //if (mu) mu.audio = API_BASE + mu.audio;
+  if (bg && !bg.image.startsWith("http")) bg.image = API_BASE + bg.image;
+  if (mu && !mu.audio.startsWith("http")) mu.audio = API_BASE + mu.audio;
 
   background.value = bg;
   music.value = mu;
